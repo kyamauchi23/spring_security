@@ -24,4 +24,9 @@ public class SpringSecurityController {
         System.out.println(user);
         return "admin/admin";
     }
+
+    @GetMapping("/success")
+    public String success(){
+        return "success";
+    }
 }
