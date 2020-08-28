@@ -6,6 +6,8 @@ services:
       - MYSQL_DATABASE=demo
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=passw0rd
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=password
       - TZ=Japan
     ports:
       - "3306:3306"
