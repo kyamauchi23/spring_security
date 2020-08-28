@@ -18,6 +18,31 @@ public class SpringSecurityController {
         return "lp";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/login-success")
+    public String loginSuccess(){
+        return "login-success";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(){
+        return "login-error";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
+    }
+
+    @GetMapping("/logout-success")
+    public String logoutSuccess(){
+        return "logout-success";
+    }
+
     @GetMapping("/admin")
     public String admin(@AuthenticationPrincipal User user){
         System.out.println(user);
