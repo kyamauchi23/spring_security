@@ -43,6 +43,11 @@ public class SpringSecurityController {
         return "logout-success";
     }
 
+    @GetMapping("/timeout")
+    public String timeout(){
+        return "timeout";
+    }
+
     @GetMapping("/admin")
     public String admin(@AuthenticationPrincipal User user){
         System.out.println(user);

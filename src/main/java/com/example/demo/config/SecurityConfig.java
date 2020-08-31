@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -33,15 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //  (3) 主にURLごとに異なるセキュリティ設定を行う
         http.authorizeRequests().antMatchers("/lp").permitAll()
+                .antMatchers("/timeout").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement()
+                .invalidSessionUrl("/timeout")
+                .and()
+                .rememberMe();
         http.formLogin()
                 .loginPage("/login").permitAll()
                 .usernameParameter("id")
                 .defaultSuccessUrl("/login-success", true)
                 .failureUrl("/login-error")
                 .and()
-                .logout().logoutSuccessUrl("/logout-success").permitAll()
+                .logout().logoutSuccessUrl("/logout-success").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(false).permitAll()
                 .and()
                 .httpBasic();
     }
